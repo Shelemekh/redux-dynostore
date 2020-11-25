@@ -1,17 +1,18 @@
-import produce from "immer";
 import { WeatherLoaded } from "./weather-actions";
 
-export const weatherReducer = (state, action) => {
-    return produce(state || {}, draft => {
+export const weatherReducer = (state={}, action) => {
         switch (action.type) {
             case WeatherLoaded: {
-                draft.weather = action.payload;
-                break;
+                debugger;
+                return {
+                    ...state,
+                    weather:action.payload
+                }
             }
 
             default: {
-                //do nothing
+                return state;
             }
         }
-    });
+
 };

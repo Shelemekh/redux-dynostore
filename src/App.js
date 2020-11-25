@@ -1,15 +1,15 @@
-import { offline } from "@redux-offline/redux-offline";
-import offlineConfig from "@redux-offline/redux-offline/lib/defaults";
+// import { offline } from "@redux-offline/redux-offline";
+// import offlineConfig from "@redux-offline/redux-offline/lib/defaults";
 import React, { Component } from "react";
-// We will load the widgets async using react-loadable.
-import Loadable from "react-loadable";
+import { createStore } from 'redux';
 import { Provider } from "react-redux";
-// createStore allows us to load/unload modules dynamically.
-import { createStore } from "redux-dynamic-modules-core";
-// Saga extension allows us to use Saga middleware in the module store.
-import { getSagaExtension } from "redux-dynamic-modules-saga";
-// Thunk extension allows us to use Thunk middleware in the module store.
-import { getThunkExtension } from "redux-dynamic-modules-thunk";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import dynostore, { dynamicReducers } from '@redux-dynostore/core';
+import { applyMiddleware } from 'redux-subspace';
+import createSagaMiddleware from 'redux-subspace-saga';
+import { dynamicSagas } from '@redux-dynostore/redux-saga';
+import HackerNews from "./widgets/hacker-news";
+import Weather from './widgets/weather';
 import "./App.css";
 
 class App extends Component {
@@ -27,13 +27,11 @@ class App extends Component {
          * The extensions are optional and you can choose extension based on the middleware you use
          * You can also build your own extensions for any other middleware e.g. redux-observable
          */
-        this.store = createStore({
-            enhancements: [offline(offlineConfig)],
-            extensions: [getThunkExtension(), getSagaExtension()],
-        });
+       
     }
-
+    
     render() {
+       
         return (
             <div className="App">
                 <h1>Widgets</h1>
@@ -59,10 +57,13 @@ class App extends Component {
     };
 
     renderContent = () => {
+        const sagaMiddleware = createSagaMiddleware();
+        const reducer = (state = {}) => state;
+        const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware),dynostore(dynamicReducers(),dynamicSagas(sagaMiddleware))))
         return (
             // Pass the configured store to redux Provider
             // and render the widgets based on the state
-            <Provider store={this.store}>
+            <Provider store={store}>
                 <>
                     {this.getHackerNews()}
                     {this.getWeather()}
@@ -73,19 +74,15 @@ class App extends Component {
 
     _hackerNews = null;
     getHackerNews() {
+        debugger;
         if (!this.state.hackerNews) {
             return null;
         }
 
         if (this._hackerNews) {
             return this._hackerNews;
-        }
-
-        const LoadableHackerNews = Loadable({
-            loader: () => import("./widgets/hacker-news"),
-            loading: () => <div>Loading Scripts...</div>,
-        });
-        this._hackerNews = <LoadableHackerNews />;
+        }      
+        this._hackerNews = <HackerNews />;
         return this._hackerNews;
     }
 
@@ -95,13 +92,8 @@ class App extends Component {
         }
         if (this._weather) {
             return this._weather;
-        }
-
-        const LoadableWeather = Loadable({
-            loader: () => import("./widgets/weather"),
-            loading: () => <div>Loading Scripts...</div>,
-        });
-        this._weather = <LoadableWeather />;
+        }       
+        this._weather = <Weather />;
         return this._weather;
     }
 }

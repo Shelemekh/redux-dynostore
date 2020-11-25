@@ -2,6 +2,7 @@ import { call, put } from "redux-saga/effects";
 import { weatherLoaded } from "./weather-actions";
 
 export function* weatherSaga() {
+    debugger;
     yield call(loadWeatherData);
 }
 

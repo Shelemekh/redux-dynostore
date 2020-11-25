@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import React from "react";
+// import {weatherLoaded} from '../redux/weather-actions';
 import "./weather-component.css";
 import "../../widgets.css";
 

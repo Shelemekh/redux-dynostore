@@ -1,16 +1,18 @@
-import produce from "immer";
 import { HackerNewsStoriesAvailable } from "./hacker-news-actions";
 
-export const hackerNewsReducer = (state, action) => {
-    return produce(state || { items: [] }, draft => {
+export const hackerNewsReducer = (state ={ items: [] }, action) => {
+ debugger;
         switch (action.type) {
             case HackerNewsStoriesAvailable: {
-                draft.items = action.payload.items;
-                break;
+                debugger;
+                return {
+                    ...state,
+                    items:action.payload.items
+                }
             }
             default: {
-                //do nothing
+                return state
             }
         }
-    });
+    
 };
