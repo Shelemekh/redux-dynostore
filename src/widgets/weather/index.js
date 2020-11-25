@@ -4,7 +4,7 @@ import {runSaga} from '@redux-dynostore/redux-saga';
 import { attachReducer } from '@redux-dynostore/redux-subspace';
 
 
-import { ConnectedWeather } from "./component/weather-component";
+import  {ConnectedWeather}  from "./component/weather-component";
 import {weatherReducer} from './redux/weather-reducer';
 import {weatherSaga} from './redux/weather-saga';
 

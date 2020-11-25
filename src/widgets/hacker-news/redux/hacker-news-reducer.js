@@ -3,7 +3,7 @@ import { HackerNewsStoriesAvailable } from "./hacker-news-actions";
 export const hackerNewsReducer = (state ={ items: [] }, action) => {
  debugger;
         switch (action.type) {
-            case HackerNewsStoriesAvailable: {
+            case "storiesavailable": {
                 debugger;
                 return {
                     ...state,

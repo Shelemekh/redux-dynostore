@@ -1,8 +1,9 @@
 import { WeatherLoaded } from "./weather-actions";
 
 export const weatherReducer = (state={}, action) => {
+    debugger;
         switch (action.type) {
-            case WeatherLoaded: {
+            case "weatherLoaded": {
                 debugger;
                 return {
                     ...state,

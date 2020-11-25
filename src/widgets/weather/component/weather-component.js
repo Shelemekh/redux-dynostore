@@ -19,16 +19,16 @@ const Weather = ({ loading, name, temperature, description }) => {
 };
 
 const mapStateToProps = state => {
-    if (!state.weatherState || !state.weatherState.weather) {
+    if (!state || !state.weather) {
         return {
             loading: true,
         };
     }
 
     return {
-        name: state.weatherState.weather.name,
-        temperature: Math.round(state.weatherState.weather.main.temp - 273),
-        description: state.weatherState.weather.weather[0].description,
+        name: state.weather.name,
+        temperature: Math.round(state.weather.main.temp - 273),
+        description: state.weather.weather[0].description,
     };
 };
 

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { createStore } from 'redux';
 import { Provider } from "react-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createLogger } from 'redux-logger';
 import dynostore, { dynamicReducers } from '@redux-dynostore/core';
 import { applyMiddleware } from 'redux-subspace';
 import createSagaMiddleware from 'redux-subspace-saga';
@@ -57,9 +58,10 @@ class App extends Component {
     };
 
     renderContent = () => {
+        const loggerMiddleware = createLogger({ collapsed: true, diff: true });
         const sagaMiddleware = createSagaMiddleware();
         const reducer = (state = {}) => state;
-        const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware),dynostore(dynamicReducers(),dynamicSagas(sagaMiddleware))))
+        const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware,loggerMiddleware),dynostore(dynamicReducers(),dynamicSagas(sagaMiddleware))))
         return (
             // Pass the configured store to redux Provider
             // and render the widgets based on the state
@@ -74,7 +76,6 @@ class App extends Component {
 
     _hackerNews = null;
     getHackerNews() {
-        debugger;
         if (!this.state.hackerNews) {
             return null;
         }

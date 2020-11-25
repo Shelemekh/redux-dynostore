@@ -15,6 +15,7 @@ class HackerNews extends Component{
    
     render (){
         const {items} = this.props;
+        debugger;
         if (items.length === 0) {
             return <div className="weather-root widget">Loading News...</div>;
         }
@@ -39,9 +40,10 @@ const List = ({ items }) => {
     return items.map((item, index) => <Link key={index} {...item} />);
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+    debugger;
     return {
-        items: state.hackerNews ? state.hackerNews.items : [],
+        items: state.items ? state.items : []
     };
 };
 // const mapDispatchToProps = (dispatch) => {
