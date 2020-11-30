@@ -3,13 +3,11 @@ import axios from 'axios';
 import { setAppConfig, CORE_APPCONFIGURATION_LOAD_FAILD,CORE_APPCONFIGURATION_REQUESTED } from "./widgets-actions";
 
 function* appConfigProcessed() {
-    debugger;
     try {
         console.log('CORE SAGA TRIGGERED');
         const { protocol, hostname, port } = window.location;
         const configurationUrl = `${protocol}//${hostname}:${port}/config.json`;
         const response = yield call(fetchConfig, configurationUrl);
-      debugger;
         yield put(setAppConfig(response.data));
       } catch (e) {
         yield put({type: CORE_APPCONFIGURATION_LOAD_FAILD});
@@ -17,6 +15,7 @@ function* appConfigProcessed() {
 }
 
 export function* widgetSaga() {
+  debugger;
     yield takeEvery(CORE_APPCONFIGURATION_REQUESTED, appConfigProcessed);
   }
   

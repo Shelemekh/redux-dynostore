@@ -14,6 +14,7 @@ export const runApplication = () => {
 
 
 export const onHackerNewsToggledAction = () => {
+    debugger;
     return {
         type: CORE_HACKERNEWS_TOGGLED
     };
@@ -32,7 +33,6 @@ export const appConfigRequested = () => {
 };
 
 export const setAppConfig = (appConfig) =>{
-    debugger;
     return{
         type: CORE_APPCONFIGURATION_LOAD_SUCCEEDED,
         payload:{appConfig}

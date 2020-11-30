@@ -1,10 +1,7 @@
-import { HackerNewsStoriesAvailable } from "./hacker-news-actions";
-
 export const hackerNewsReducer = (state ={ items: [] }, action) => {
- debugger;
         switch (action.type) {
             case "storiesavailable": {
-                debugger;
+                console.log('DYNAMIC REDUCER TRIGGERED');
                 return {
                     ...state,
                     items:action.payload.items

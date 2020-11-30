@@ -3,7 +3,6 @@ import { storiesAvailable } from "./hacker-news-actions";
 
 
 export function* hackerNewsSaga() {
-    debugger;
     yield call(fetchStories);
 }
 // function* loadHakerNewsData() {

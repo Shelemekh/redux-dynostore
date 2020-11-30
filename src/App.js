@@ -1,8 +1,6 @@
 // import { offline } from "@redux-offline/redux-offline";
 // import offlineConfig from "@redux-offline/redux-offline/lib/defaults";
 import React, { Component } from "react";
-// We will load the widgets async using react-loadable.
-import Loadable from "react-loadable";
 import { connect } from "react-redux";
 // import { createLogger } from 'redux-logger';
 // import { composeWithDevTools } from "redux-devtools-extension";
@@ -15,6 +13,8 @@ import { connect } from "react-redux";
 // import { getThunkExtension } from "redux-dynamic-modules-thunk";
 // import {applyMiddleware} from 'redux';
 import {runApplication, onWeatherToggledAction, onHackerNewsToggledAction} from './widgets/widgets-redux/widgets-actions';
+import HackerNews from './widgets/hacker-news';
+import Weather from './widgets/weather';
 import "./App.css";
 // import widgetMiddleware from './widgets/widgets-redux/widgets-middleware';
 // import widgetSaga from './widgets/widgets-redux/widgets-saga';
@@ -54,7 +54,7 @@ class App extends Component {
 
     render() {
         const {onWeatherToggled, onHackerNewsToggled} = this.props;
-        debugger;
+        
         return (
             <div className="App">
                 <h1>Widgets</h1>

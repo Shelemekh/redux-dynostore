@@ -1,12 +1,10 @@
+import dynamic from '@redux-dynostore/react-redux';
+import subspaced from '@redux-dynostore/react-redux-subspace';
+import {runSaga} from '@redux-dynostore/redux-saga';
+import { attachReducer } from '@redux-dynostore/redux-subspace';
 import { ConnectedWeather } from "./component/weather-component";
-import { getWeatherModule } from "./redux/weather-module";
-import { DynamicModuleLoader } from "redux-dynamic-modules-react";
-import * as React from "react";
+import {weatherReducer} from './redux/weather-reducer';
+import {weatherSaga} from './redux/weather-saga';
 
-export default function Dynamic() {
-    return (
-        <DynamicModuleLoader modules={[getWeatherModule()]}>
-            <ConnectedWeather />
-        </DynamicModuleLoader>
-    );
-}
+
+export default dynamic('weather', attachReducer(weatherReducer), runSaga(weatherSaga), subspaced())(ConnectedWeather);

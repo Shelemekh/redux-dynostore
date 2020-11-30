@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from "react-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
@@ -8,8 +8,9 @@ import dynostore, { dynamicReducers } from '@redux-dynostore/core';
 import { applyMiddleware } from 'redux-subspace';
 import createSagaMiddleware from 'redux-subspace-saga';
 import { dynamicSagas } from '@redux-dynostore/redux-saga';
-import HackerNews from "./widgets/hacker-news";
-import Weather from './widgets/weather';
+import {appState} from './widgets/widgets-redux/widgets-reducer';
+import {widgetSaga} from './widgets/widgets-redux/widgets-saga';
+import {widgetMiddleware} from './widgets/widgets-redux/widgets-middleware';
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -17,9 +18,10 @@ import * as serviceWorker from "./serviceWorker";
 // const sagaMiddleware = createSagaMiddleware();
 const loggerMiddleware = createLogger({ collapsed: true, diff: true });
 const sagaMiddleware = createSagaMiddleware();
-const reducer = (state = {}) => state;
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware,loggerMiddleware),dynostore(dynamicReducers(),dynamicSagas(sagaMiddleware))))
 
+const reducer = combineReducers({appState});
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware,loggerMiddleware,widgetMiddleware),dynostore(dynamicReducers(),dynamicSagas(sagaMiddleware))))
+sagaMiddleware.run(widgetSaga);
 ReactDOM.render(
     <Provider store={store}>
         <App />

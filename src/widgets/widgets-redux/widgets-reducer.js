@@ -1,10 +1,8 @@
-import produce from "immer";
+// import produce from "immer";
 import { CORE_HACKERNEWS_TOGGLED,CORE_WEATHER_TOGGLED, CORE_APPCONFIGURATION_LOAD_SUCCEEDED } from "./widgets-actions";
 
-export const widgetReducer = (state, action) => {
-    return produce(state || {}, draft => {
-        switch (action.type) {
-           
+export const appState = (state={activeModule:[]}, action) => {   
+        switch (action.type) {         
             case CORE_HACKERNEWS_TOGGLED: {
                 console.log('CORE REDUCER TRIGGERED');
                 const moduleName = 'hackernews';
@@ -21,6 +19,7 @@ export const widgetReducer = (state, action) => {
                     ...state,
                     activeModule:newAppState
                 }
+                
             }
             case CORE_WEATHER_TOGGLED: {
                 console.log('CORE REDUCER TRIGGERED');
@@ -49,6 +48,5 @@ export const widgetReducer = (state, action) => {
             default: {
                 return state;
             }
-        }
-    });
+        }   
 };

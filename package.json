@@ -9,6 +9,7 @@
         "@redux-dynostore/redux-saga": "^3.1.0",
         "@redux-dynostore/redux-subspace": "^3.1.0",
         "@redux-dynostore/redux-subspace-saga": "^3.1.0",
+        "axios": "^0.21.0",
         "react": "^16.8.0",
         "react-dom": "^16.8.0",
         "react-redux": "7.1.0",
